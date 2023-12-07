@@ -53,7 +53,7 @@ services:
     networks:
       - my_network
     ports:
-      - "7070:80"
+      - "7007:80"
     environment:
       PMA_HOST: database
       PMA_USER: your_database_user
