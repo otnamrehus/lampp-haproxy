@@ -1,4 +1,4 @@
-# lampp_swarm
+# LAMPP + HAProxy
 Lampp (PHP7.4-Apache, Mariadb dam PHPMyAdmin) dijalankan dengan Docker-Swarm
 
 # JALANKAN #
