@@ -42,10 +42,12 @@ services:
     ports:
       - "3306:3306"
     environment:
+      #MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: database_name
+      #MYSQL_DATABASE: lampp-haproxy
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:5
@@ -55,12 +57,13 @@ services:
     ports:
       - "7007:80"
     environment:
+    environment:
       PMA_HOST: database
-      PMA_USER: user
-      PMA_PASSWORD: password
-      PMA_PORT: 3306
+      #PMA_USER: user
+      #PMA_ROOT_PASSWORD: password
+      #PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: user
+      #MYSQL_USER: user
       MYSQL_PASSWORD: password
     depends_on:
       - database
