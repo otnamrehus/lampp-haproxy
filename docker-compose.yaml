@@ -1,0 +1,80 @@
+version: "3"
+
+services:
+  webserver1:
+    image: php:7.4-apache
+    hostname: webserver1
+    networks:
+      - my_network
+    ports:
+      - "7001:80"
+      - "7021:22"
+    depends_on:
+      - database
+
+  webserver2:
+    image: php:7.4-apache
+    hostname: webserver2
+    networks:
+      - my_network
+    ports:
+      - "7002:80"
+      - "7022:22"
+    depends_on:
+      - database
+
+  webserver3:
+    image: php:7.4-apache
+    hostname: webserver3
+    networks:
+      - my_network
+    ports:
+      - "7003:80"
+      - "7023:22"
+    depends_on:
+      - database
+
+  database:
+    image: mariadb
+    hostname: database
+    networks:
+      - my_network
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_DATABASE: your_database_name
+      MYSQL_USER: your_database_user
+      MYSQL_PASSWORD: your_database_password
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5
+    hostname: phpmyadmin
+    networks:
+      - my_network
+    ports:
+      - "7070:80"
+    environment:
+      PMA_HOST: database
+      PMA_USER: your_database_user
+      PMA_PASSWORD: your_database_password
+    depends_on:
+      - database
+
+  haproxy:
+    image: haproxy:latest
+    hostname: haproxy
+    networks:
+      - my_network
+    ports:
+      - "7000:80"
+    depends_on:
+      - webserver1
+      - webserver2
+      - webserver3
+    volumes:
+      - ./haproxy:/usr/local/etc/haproxy
+
+networks:
+  my_network:
+    driver: overlay
