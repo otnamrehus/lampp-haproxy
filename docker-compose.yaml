@@ -5,7 +5,7 @@ services:
     image: php:7.4-apache
     hostname: webserver1
     networks:
-      - my_network
+      - lampp-haproxy
     ports:
       - "7001:80"
       - "7021:22"
@@ -16,7 +16,7 @@ services:
     image: php:7.4-apache
     hostname: webserver2
     networks:
-      - my_network
+      - lampp-haproxy
     ports:
       - "7002:80"
       - "7022:22"
@@ -30,7 +30,7 @@ services:
     image: php:7.4-apache
     hostname: webserver3
     networks:
-      - my_network
+      - lampp-haproxy
     ports:
       - "7003:80"
       - "7023:22"
@@ -44,7 +44,7 @@ services:
     image: mariadb
     hostname: database
     networks:
-      - my_network
+      - lampp-haproxy
     ports:
       - "3306:3306"
     environment:
@@ -59,7 +59,7 @@ services:
     image: phpmyadmin/phpmyadmin:5
     hostname: phpmyadmin
     networks:
-      - my_network
+      - lampp-haproxy
     ports:
       - "7007:80"
     environment:
@@ -78,7 +78,7 @@ services:
     image: haproxy:latest
     hostname: haproxy
     networks:
-      - my_network
+      - lampp-haproxy
     ports:
       - "7000:80"
     depends_on:
@@ -89,5 +89,5 @@ services:
       - ./haproxy:/usr/local/etc/haproxy
 
 networks:
-  my_network:
+  lampp-haproxy:
     driver: bridge
