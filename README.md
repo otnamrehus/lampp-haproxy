@@ -13,5 +13,5 @@ chmod +x server.sh && \
 # TESTING #
 - Browser http://ipaddress:7007  [PHPMyAdmin]
   - MySQL user : user/password
-  - MySQL root : user/password
+  - MySQL root : root/password
 - Browser http://ipaddress:7000  [Web]
