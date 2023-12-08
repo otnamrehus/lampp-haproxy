@@ -15,3 +15,4 @@ chmod +x server.sh && \
   - MySQL user : user/password
   - MySQL root : root/password
 - Browser http://ipaddress:7000  [Web]
+- Browser http://ipaddress:7000/haproxy?stats   [Haproxy-Statistik]
