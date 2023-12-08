@@ -1,26 +1,38 @@
+
 #!/bin/bash
 clear
-echo "::::::::::::::::::::::::::::::::::::::::"
-echo "............. DOCKER STACK ............."
-echo "::::::::::::::::::::::::::::::::::::::::"
-echo "----------------------------------------"
-echo "d - [✓] Eksekusi Docker Stack - [ Mode: Silent ]"
-echo "----------------------------------------"
-echo "b - [✓] Eksekusi Docker Stack [ Mode: Test ]"
-echo "----------------------------------------"
-echo "x - [X] Hapus Docker Stack " 
-echo "----------------------------------------"
-echo "1 - [✓] Start Docker Stack " 
-echo "----------------------------------------"
-echo "0 - [!] Stop Docker Stack "
-echo "----------------------------------------"
+echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+echo "........................... DOCKER SWARM .........................."
+echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+echo "-------------------------------------------------------------------"
+echo "s - [✓] Inisiasi Docker Swarm"
+echo "-------------------------------------------------------------------"
+echo "d - [✓] Deploy Stack Swarm "
+echo "-------------------------------------------------------------------"
+echo "c - [?] Cek Status Stack Swarm "
+echo "-------------------------------------------------------------------"
+echo "ss - [?] Status Service Swarm Berjalan "
+echo "-------------------------------------------------------------------"
+echo "r - [X] Hapus Stack Lampp_Swarm  "
+echo "-------------------------------------------------------------------"
+echo "rr - [!] Hentikan Docker Swarm [Hapus Seluruh Stack yang berjalan] "
+echo "-------------------------------------------------------------------"
+echo "Opsi Perintah Tambahan :"
+echo "1. Manager Node: "
+echo "   docker swarm  init      "
+echo "   docker swarm join-token manager      "
+echo "2. Join Node: "
+echo "   docker swarm join --token <TOKEN> <IP>:<PORT>    "
+echo "-------------------------------------------------------------------"
 echo " "
-read lampphaproxy;
-case $lampphaproxy in
-  d) docker-compose -p "lampp-haproxy" up -d --build ;;   ### Nama Stack + Dibalik Layar
-  b) docker-compose -p "lampp-haproxy" up --build ;;   ### Nama Stack + Proses Test
-  x) docker-compose -p "lampp-haproxy" down ;;   ### Nama Stack + Hapus Container
-  0) docker-compose -p "lampp-haproxy" stop ;;   ### Stop 
-  1) docker-compose -p "lampp-haproxy" start ;;  ### Start
-  *) clear && echo "Keluar dari Pilihan Service Docker Stack";;
+
+read swarm;
+case $swarm in
+  s) docker swarm init && ./server.sh;;
+  d) docker stack deploy -c docker-compose.yaml lampp_swarm && ./server.sh;;
+  c) docker stack ps lampp_swarm && ./server.sh;;
+  ss) docker service ls && ./server.sh;;
+  r) docker stack rm lampp_swarm && ./server.sh;;
+  rr) docker swarm leave --force && ./server.sh;;
+  *) clear && echo "Keluar dari Pilihan Service Docker Swarm";;
 esac
