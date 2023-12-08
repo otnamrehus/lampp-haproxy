@@ -20,6 +20,9 @@ services:
     ports:
       - "7002:80"
       - "7022:22"
+    volumes:
+      - ./web:/var/www/html
+    command: bash -c "while true; do rsync -avz /var/www/html/ webserver1:/var/www/html/; sleep 10; done"
     depends_on:
       - database
 
@@ -31,6 +34,9 @@ services:
     ports:
       - "7003:80"
       - "7023:22"
+    volumes:
+      - ./web:/var/www/html
+    command: bash -c "while true; do rsync -avz /var/www/html/ webserver1:/var/www/html/; sleep 10; done"
     depends_on:
       - database
 
@@ -44,7 +50,7 @@ services:
     environment:
       #MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_ROOT_PASSWORD: password
-      #MYSQL_DATABASE: lampp-haproxy
+      MYSQL_DATABASE: lampp-haproxy
       MYSQL_USER: user
       MYSQL_PASSWORD: password
 
@@ -63,7 +69,7 @@ services:
       #PMA_ROOT_PASSWORD: password
       #PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: password
-      #MYSQL_USER: user
+      MYSQL_USER: user
       MYSQL_PASSWORD: password
     depends_on:
       - database
