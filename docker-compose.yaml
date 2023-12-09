@@ -1,9 +1,9 @@
 version: "3"
 
 services:
-  webserver1:
+  web1:
     image: php:7.4-apache
-    hostname: webserver1
+    hostname: web1
     networks:
       - lampp-haproxy
     ports:
@@ -12,9 +12,9 @@ services:
     depends_on:
       - database
 
-  webserver2:
+  web2:
     image: php:7.4-apache
-    hostname: webserver2
+    hostname: web2
     networks:
       - lampp-haproxy
     ports:
@@ -26,9 +26,9 @@ services:
     depends_on:
       - database
 
-  webserver3:
+  web3:
     image: php:7.4-apache
-    hostname: webserver3
+    hostname: web3
     networks:
       - lampp-haproxy
     ports:
@@ -66,6 +66,7 @@ services:
     environment:
       PMA_HOST: database
       #PMA_USER: user
+      #PMA_USER_PASSWORD: password
       #PMA_ROOT_PASSWORD: password
       #PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: password
@@ -82,9 +83,9 @@ services:
     ports:
       - "7000:80"
     depends_on:
-      - webserver1
-      - webserver2
-      - webserver3
+      - web1
+      - web2
+      - web3
     volumes:
       - ./haproxy:/usr/local/etc/haproxy
 
